@@ -1,1 +1,1 @@
-export { validateBody } from './validation.ts'
+export { validateBody, validateParams, validateQuery } from './validation.ts'
