@@ -1,3 +1,5 @@
+// drizzle is an orm which means "object relational mapper"
+import { relations } from 'drizzle-orm'
 import {
   pgTable,
   uuid,
@@ -7,9 +9,7 @@ import {
   boolean,
   integer,
 } from 'drizzle-orm/pg-core'
-import { relations } from 'drizzle-orm'
-import { create } from 'domain'
-import { id } from 'zod/locales'
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 
 export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -63,3 +63,47 @@ export const habitTags = pgTable('habit_tags', {
     .references(() => tags.id, { onDelete: 'cascade' })
     .notNull(),
 })
+
+export const userRelations = relations(users, ({ many }) => ({
+  habits: many(habits),
+}))
+
+export const habitRelations = relations(habits, ({ one, many }) => ({
+  user: one(users, {
+    fields: [habits.userId],
+    references: [users.id],
+  }),
+  entries: many(entries),
+  habitTags: many(habitTags),
+}))
+
+export const entriesRelations = relations(entries, ({ one }) => ({
+  habit: one(habits, {
+    fields: [entries.habitId],
+    references: [habits.id],
+  }),
+}))
+
+export const tagsRelations = relations(tags, ({ many }) => ({
+  habitTags: many(habitTags),
+}))
+
+export const habitTagsRelations = relations(habitTags, ({ one }) => ({
+  habit: one(habits, {
+    fields: [habitTags.habitId],
+    references: [habits.id],
+  }),
+  tag: one(tags, {
+    fields: [habitTags.tagId],
+    references: [tags.id],
+  }),
+}))
+
+export type User = typeof users.$inferSelect
+export type Habit = typeof habits.$inferSelect
+export type Entry = typeof entries.$inferSelect
+export type Tag = typeof tags.$inferSelect
+export type HabitTag = typeof habitTags.$inferSelect
+
+export const insertUserSchema = createInsertSchema(users)
+export const selectUserSchema = createSelectSchema(users)
