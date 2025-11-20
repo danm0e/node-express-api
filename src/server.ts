@@ -12,13 +12,13 @@ import {
 } from './routes/index.ts'
 
 const app = express()
-
+// global middleware
 app.use(helmet())
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan('dev', { skip: () => isTest() }))
-
+// routes
 app.use('/health', healthRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/users', usersRouter)
