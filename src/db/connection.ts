@@ -12,6 +12,6 @@ const createPool = () => {
 
 let client: any
 
-isProd() ? (client = createPool()) : (client = remember('dbPool', createPool()))
+isProd() ? (client = createPool()) : (client = remember('dbPool', createPool))
 
 export const db = drizzle(client, { schema })
