@@ -1,6 +1,9 @@
 import { Router } from 'express'
+import { authenticateToken } from '../../middleware/index.ts'
 
 export const usersRouter = Router()
+
+usersRouter.use(authenticateToken) // use authentication middleware for all user routes
 
 usersRouter.get('/', (req, res) => {
   res.json({ message: 'users' })
