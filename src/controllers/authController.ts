@@ -1,15 +1,19 @@
 import type { Request, Response } from 'express'
-import bcrypt from 'bcrypt'
 import { db, users } from '../db/index.ts'
-import { generateToken, hashPassword } from '../utils/index.ts'
+import {
+  generateToken,
+  hashPassword,
+  comparePasswords,
+} from '../utils/index.ts'
 import type { NewUser } from '../db/schema.ts'
+import { eq } from 'drizzle-orm'
 
 export const register = async (
   req: Request<any, any, NewUser>,
   res: Response
 ) => {
   try {
-    const { username, email, password, firstName, lastName } = req.body
+    const { password } = req.body
     const hashedPassword = await hashPassword(password)
 
     const [newUser] = await db
@@ -40,5 +44,47 @@ export const register = async (
   } catch (error) {
     console.error('Registration error:', error)
     res.status(500).json({ error: 'Failed to register user' })
+  }
+}
+
+export const login = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body
+
+    const user = await db.query.users.findFirst({
+      where: eq(users.email, email),
+    })
+
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid email or password' })
+    }
+
+    const isValidPassword = await comparePasswords(password, user.password)
+
+    if (!isValidPassword) {
+      return res.status(401).json({ error: 'Invalid email or password' })
+    }
+
+    const token = await generateToken({
+      id: user.id,
+      email: user.email,
+      username: user.username,
+    })
+
+    res.json({
+      message: 'User logged in successfully',
+      user: {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        createdAt: user.createdAt,
+      },
+      token,
+    })
+  } catch (error) {
+    console.error('Login error:', error)
+    res.status(500).json({ error: 'Failed to log in user' })
   }
 }
