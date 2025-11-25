@@ -4,14 +4,14 @@ import {
   authenticateToken,
   validateBody,
   validateParams,
-} from '../../middleware/index.ts'
+} from '@/middleware/index.js'
 import {
   createHabit,
   deleteHabit,
   getHabit,
   getHabits,
   updateHabit,
-} from '../../controllers/habits.controller.ts'
+} from '@/controllers/habits.controller.js'
 
 const createHabitsSchema = z.object({
   name: z.string(),

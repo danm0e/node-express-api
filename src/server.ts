@@ -9,8 +9,8 @@ import {
   habitsRouter,
   healthRouter,
   usersRouter,
-} from './routes/index.ts'
-import { errorHandler } from './middleware/index.ts'
+} from '@/routes/index.js'
+import { errorHandler } from '@/middleware/index.js'
 
 const app = express()
 // global middleware

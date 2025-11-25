@@ -1,7 +1,7 @@
 import type { Response } from 'express'
-import type { AuthenticatedRequest } from '../middleware/auth/auth.middleware.ts'
-import { db } from '../db/connection.ts'
-import { habits, entries, habitTags, tags } from '../db/schema.ts'
+import type { AuthenticatedRequest } from '@/middleware/auth/auth.middleware.js'
+import { db } from '@/db/connection.js'
+import { habits, entries, habitTags, tags } from '@/db/schema.js'
 import { eq, and, desc, inArray } from 'drizzle-orm'
 
 export const createHabit = async (req: AuthenticatedRequest, res: Response) => {

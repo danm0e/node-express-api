@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import { validateBody } from '../../middleware/index.ts'
-import { insertUserSchema } from '../../db/schema.ts'
-import { register, login } from '../../controllers/auth.controller.ts'
+import { validateBody } from '@/middleware/index.js'
+import { insertUserSchema } from '@/db/schema.js'
+import { register, login } from '@/controllers/auth.controller.js'
 import { z } from 'zod'
 
 const loginSchema = z.object({
