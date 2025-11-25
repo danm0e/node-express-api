@@ -1,2 +1,2 @@
-export { generateToken } from './jwt.ts'
-export { hashPassword, comparePasswords } from './passwords.ts'
+export { generateToken, verifyToken, type JwtPayload } from './jwt.utils.ts'
+export { hashPassword, comparePasswords } from './password.utils.ts'
