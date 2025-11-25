@@ -10,6 +10,7 @@ import {
   healthRouter,
   usersRouter,
 } from './routes/index.ts'
+import { errorHandler } from './middleware/index.ts'
 
 const app = express()
 // global middleware
@@ -23,6 +24,8 @@ app.use('/health', healthRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/habits', habitsRouter)
+
+app.use(errorHandler)
 
 export { app }
 export default app
