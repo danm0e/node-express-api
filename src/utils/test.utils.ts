@@ -1,5 +1,5 @@
-import { db } from '@/db/connection.js'
 import {
+  db,
   users,
   habits,
   entries,
@@ -7,7 +7,7 @@ import {
   habitTags,
   type NewUser,
   type NewHabit,
-} from '@/db/schema.js'
+} from '@/db'
 import { generateToken, hashPassword } from './index.ts'
 
 export const createTestUser = async (overrides: Partial<NewUser> = {}) => {

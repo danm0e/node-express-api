@@ -1,17 +1,13 @@
 import { Router } from 'express'
 import { z } from 'zod'
-import {
-  authenticateToken,
-  validateBody,
-  validateParams,
-} from '@/middleware/index.js'
+import { authenticateToken, validateBody, validateParams } from '@/middleware'
 import {
   createHabit,
   deleteHabit,
   getHabit,
   getHabits,
   updateHabit,
-} from '@/controllers/habits.controller.js'
+} from '@/controllers'
 
 const createHabitsSchema = z.object({
   name: z.string(),

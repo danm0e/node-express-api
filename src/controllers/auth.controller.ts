@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express'
-import { db, users } from '@/db/index.js'
-import { generateToken, hashPassword, comparePasswords } from '@/utils/index.js'
-import type { NewUser } from '@/db/schema.js'
+import { db, users } from '@/db'
+import { generateToken, hashPassword, comparePasswords } from '@/utils'
+import type { NewUser } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 
 export const register = async (

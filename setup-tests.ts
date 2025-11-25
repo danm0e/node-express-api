@@ -1,5 +1,4 @@
-import { db } from '@/db/connection.js'
-import { users, habits, entries, tags, habitTags } from '@/db/schema.js'
+import { db, users, habits, entries, tags, habitTags } from '@/db'
 import { sql } from 'drizzle-orm'
 import { execSync } from 'child_process'
 

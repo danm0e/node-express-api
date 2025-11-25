@@ -4,13 +4,8 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 
 import { isTest } from '../env.ts'
-import {
-  authRouter,
-  habitsRouter,
-  healthRouter,
-  usersRouter,
-} from '@/routes/index.js'
-import { errorHandler } from '@/middleware/index.js'
+import { authRouter, habitsRouter, healthRouter, usersRouter } from '@/routes'
+import { errorHandler } from '@/middleware'
 
 const app = express()
 // global middleware

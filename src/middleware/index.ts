@@ -1,7 +1,3 @@
-export {
-  validateBody,
-  validateParams,
-  validateQuery,
-} from './validation/index.ts'
-export { authenticateToken } from './auth/index.ts'
-export { errorHandler } from './error/index.ts'
+export { validateBody, validateParams, validateQuery } from './validation'
+export { authenticateToken, type AuthenticatedRequest } from './auth'
+export { errorHandler } from './error'
