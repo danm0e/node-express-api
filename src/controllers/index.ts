@@ -1,1 +1,1 @@
-export { register } from './authController.ts'
+export { register } from './auth.controller.ts'

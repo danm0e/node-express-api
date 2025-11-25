@@ -5,29 +5,32 @@ import {
   validateBody,
   validateParams,
 } from '../../middleware/index.ts'
+import {
+  createHabit,
+  deleteHabit,
+  getHabit,
+  getHabits,
+  updateHabit,
+} from '../../controllers/habits.controller.ts'
 
-const createHabitsSchema = z.object({ name: z.string() })
+const createHabitsSchema = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+  frequency: z.string(),
+  targetCount: z.string(),
+  tagIds: z.array(z.string()).optional(),
+})
 const completeHabitsSchema = z.object({ id: z.string().max(3) })
 
 export const habitsRouter = Router()
 
 habitsRouter.use(authenticateToken) // use authentication middleware for all habit routes
 
-habitsRouter.get('/', (req, res) => {
-  res.json({ message: 'habits' })
-})
-
-habitsRouter.get('/:id', (req, res) => {
-  res.json({ message: 'got one habit' })
-})
-
-habitsRouter.post('/', validateBody(createHabitsSchema), (req, res) => {
-  res.json({ message: 'habit created' })
-})
-
-habitsRouter.delete('/:id', (req, res) => {
-  res.json({ message: 'habit deleted' })
-})
+habitsRouter.post('/', validateBody(createHabitsSchema), createHabit)
+habitsRouter.get('/', getHabits)
+habitsRouter.get('/:id', getHabit)
+habitsRouter.patch('/:id', updateHabit)
+habitsRouter.delete('/:id', deleteHabit)
 
 habitsRouter.post(
   '/:id/complete',
