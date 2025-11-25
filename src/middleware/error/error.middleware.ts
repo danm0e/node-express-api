@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express'
-import { env } from '../../../env.ts'
-import type { ApiError } from '../../classes/index.ts'
+import { env } from '@root/env'
+import type { ApiError } from '@/classes'
 
 export const errorHandler = (
   err: ApiError,

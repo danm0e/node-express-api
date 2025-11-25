@@ -1,6 +1,6 @@
 import request from 'supertest'
 import app from '../../server.ts'
-import { env } from '../../../env.ts'
+import { env } from '@root/env'
 import {
   cleanDatabase,
   createTestHabit,

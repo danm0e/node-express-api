@@ -1,6 +1,6 @@
 import { SignJWT, jwtVerify } from 'jose'
 import { createSecretKey } from 'node:crypto'
-import env from '../../env.ts'
+import { env } from '@root/env'
 
 const secret = env.JWT_SECRET
 const secretKey = createSecretKey(secret, 'utf-8')

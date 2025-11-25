@@ -3,7 +3,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 import helmet from 'helmet'
 
-import { isTest } from '../env.ts'
+import { isTest } from '@root/env'
 import { authRouter, habitsRouter, healthRouter, usersRouter } from '@/routes'
 import { errorHandler } from '@/middleware'
 
