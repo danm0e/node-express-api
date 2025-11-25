@@ -38,12 +38,12 @@ export const register = async (
       username: newUser.username,
     })
 
-    res
+    return res
       .status(201)
       .json({ message: 'User registered successfully', user: newUser, token })
   } catch (error) {
     console.error('Registration error:', error)
-    res.status(500).json({ error: 'Failed to register user' })
+    return res.status(500).json({ error: 'Failed to register user' })
   }
 }
 
@@ -71,7 +71,7 @@ export const login = async (req: Request, res: Response) => {
       username: user.username,
     })
 
-    res.json({
+    return res.status(201).json({
       message: 'User logged in successfully',
       user: {
         id: user.id,
@@ -85,6 +85,6 @@ export const login = async (req: Request, res: Response) => {
     })
   } catch (error) {
     console.error('Login error:', error)
-    res.status(500).json({ error: 'Failed to log in user' })
+    return res.status(500).json({ error: 'Failed to log in user' })
   }
 }

@@ -28,10 +28,12 @@ export const createHabit = async (req: AuthenticatedRequest, res: Response) => {
       return newHabit
     })
 
-    res.status(201).json({ message: 'Habit created successfully', habit })
+    return res
+      .status(201)
+      .json({ message: 'Habit created successfully', habit })
   } catch (error) {
     console.error('Error creating habit:', error)
-    res.status(500).json({ error: 'Failed to create habit' })
+    return res.status(500).json({ error: 'Failed to create habit' })
   }
 }
 
@@ -54,10 +56,10 @@ export const getHabits = async (req: AuthenticatedRequest, res: Response) => {
       habitTags: undefined, // remove habitTags to avoid redundancy
     }))
 
-    res.json(habitsWithTags)
+    return res.json(habitsWithTags)
   } catch (error) {
     console.error('Error fetching habit:', error)
-    res.status(500).json({ error: 'Failed to fetch habit' })
+    return res.status(500).json({ error: 'Failed to fetch habit' })
   }
 }
 
@@ -85,10 +87,10 @@ export const getHabit = async (req: AuthenticatedRequest, res: Response) => {
       habitTags: undefined,
     }
 
-    res.json(habitWithTags)
+    return res.json(habitWithTags)
   } catch (error) {
     console.error('Error fetching habit:', error)
-    res.status(500).json({ error: 'Failed to fetch habit' })
+    return res.status(500).json({ error: 'Failed to fetch habit' })
   }
 }
 
@@ -127,10 +129,10 @@ export const updateHabit = async (req: AuthenticatedRequest, res: Response) => {
       return updatedHabit
     })
 
-    res.json({ message: 'Habit updated successfully', habit })
+    return res.json({ message: 'Habit updated successfully', habit })
   } catch (error) {
     console.error('Error updating habit:', error)
-    res.status(500).json({ error: 'Failed to update habit' })
+    return res.status(500).json({ error: 'Failed to update habit' })
   }
 }
 
@@ -148,9 +150,9 @@ export const deleteHabit = async (req: AuthenticatedRequest, res: Response) => {
       return res.status(404).json({ error: 'Habit not found' })
     }
 
-    res.json({ message: 'Habit deleted successfully' })
+    return res.json({ message: 'Habit deleted successfully' })
   } catch (error) {
     console.error('Error deleting habit:', error)
-    res.status(500).json({ error: 'Failed to delete habit' })
+    return res.status(500).json({ error: 'Failed to delete habit' })
   }
 }
