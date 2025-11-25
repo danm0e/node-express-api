@@ -110,7 +110,7 @@ export const updateHabit = async (req: AuthenticatedRequest, res: Response) => {
         .returning()
 
       if (!updatedHabit) {
-        return res.status(401).end()
+        throw new Error('Habit not found')
       }
 
       if (tagIds !== undefined) {
@@ -132,6 +132,9 @@ export const updateHabit = async (req: AuthenticatedRequest, res: Response) => {
     return res.json({ message: 'Habit updated successfully', habit })
   } catch (error) {
     console.error('Error updating habit:', error)
+    if (error.message === 'Habit not found') {
+      return res.status(404).json({ error: 'Habit not found' })
+    }
     return res.status(500).json({ error: 'Failed to update habit' })
   }
 }

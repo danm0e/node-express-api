@@ -12,12 +12,15 @@ export const authenticateToken = async (
 ) => {
   try {
     const authHeader = req.headers.authorization
+
+    if (!authHeader) {
+      return res.status(401).json({ error: 'Authorization header missing' })
+    }
+
     const token = authHeader.split(' ')[1]
 
     if (!token) {
-      return res
-        .status(401)
-        .json({ error: 'Authorization header missing or malformed' })
+      return res.status(401).json({ error: 'Authorization token malformed' })
     }
 
     const payload = await verifyToken(token)
@@ -26,6 +29,6 @@ export const authenticateToken = async (
     next()
   } catch (error) {
     console.error('Token verification error:', error)
-    res.status(403).json({ error: 'Forbidden' })
+    return res.status(401).json({ error: 'Invalid or expired token' })
   }
 }

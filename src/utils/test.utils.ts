@@ -28,7 +28,7 @@ export const createTestUser = async (overrides: Partial<NewUser> = {}) => {
     .values({ ...defaultUser, password: hashedPassword })
     .returning()
 
-  const token = generateToken({
+  const token = await generateToken({
     id: user.id,
     email: user.email,
     username: user.username,
