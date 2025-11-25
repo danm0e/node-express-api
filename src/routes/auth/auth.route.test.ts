@@ -1,11 +1,7 @@
 import request from 'supertest'
-import app from '../../server.ts'
+import app from '@/server'
 import { env } from '@root/env'
-import {
-  cleanDatabase,
-  createTestHabit,
-  createTestUser,
-} from '../../utils/test.utils.ts'
+import { cleanDatabase, createTestHabit, createTestUser } from '@/utils'
 
 describe('Auth Routes', () => {
   afterEach(async () => {

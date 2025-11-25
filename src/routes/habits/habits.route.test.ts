@@ -1,10 +1,6 @@
 import request from 'supertest'
-import app from '../../server.ts'
-import {
-  cleanDatabase,
-  createTestUser,
-  createTestHabit,
-} from '../../utils/test.utils.ts'
+import app from '@/server'
+import { cleanDatabase, createTestUser, createTestHabit } from '@/utils'
 
 describe('Habits Routes', () => {
   afterEach(async () => {
